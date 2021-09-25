@@ -18,6 +18,9 @@ const buildingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  address: {
+    type: String,
+  },
   floor: {
     type: Number,
     min: 0,
