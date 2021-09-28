@@ -7,6 +7,9 @@ const visitorDetailSchema = new mongoose.Schema({
   vPhone: {
     type: Number,
   },
+  visitAddress: {
+    type: String,
+  },
   visitTime: {
     type: Date,
     default: Date.now,
