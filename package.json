@@ -8,7 +8,7 @@
     "start": "node index.js",
     "dev-start": "nodemon index.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run dev-start\" \"npm run client\""
+    "dev": "concurrently -n 'backend,frontend'  -c 'green,blue' \"npm run dev-start\" \"npm run client\""
   },
   "author": "Sumedh Indulkar",
   "license": "ISC",
