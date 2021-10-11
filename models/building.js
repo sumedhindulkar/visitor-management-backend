@@ -3,11 +3,17 @@ const mongoose = require("mongoose");
 const visitorDetailSchema = new mongoose.Schema({
   vName: {
     type: String,
+    required: true,
   },
   vPhone: {
     type: Number,
+    required: true,
   },
   visitAddress: {
+    type: String,
+    required: true,
+  },
+  visitReason: {
     type: String,
   },
   visitTime: {
@@ -27,10 +33,22 @@ const buildingSchema = new mongoose.Schema({
   floor: {
     type: Number,
     min: 0,
-    max: 50,
+    max: 80,
+  },
+  wings: {
+    type: Number,
+    min: 0,
   },
   qrcode: {
     type: String,
+  },
+  secretary: {
+    name: {
+      type: String,
+    },
+    phone: {
+      type: Number,
+    },
   },
   visitors: [visitorDetailSchema],
 });
