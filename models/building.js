@@ -9,6 +9,9 @@ const visitorDetailSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  vPhoto: {
+    type: String,
+  },
   visitAddress: {
     type: String,
     required: true,
@@ -24,6 +27,17 @@ const visitorDetailSchema = new mongoose.Schema({
 
 const buildingSchema = new mongoose.Schema({
   name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+  },
+  photo: {
+    type: String,
+  },
+  password: {
     type: String,
     required: true,
   },

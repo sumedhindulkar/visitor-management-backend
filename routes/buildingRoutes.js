@@ -25,6 +25,9 @@ router.post("/building/:id/visitor", async (req, res) => {
     res.json({ msg: "data saved sucessfully" });
   });
   await foundBuilding.addNewVisitor(newVisitor);
+  res.json({
+    msg: "Data Saved",
+  });
 });
 
 // get all buildings
