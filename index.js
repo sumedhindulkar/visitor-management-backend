@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const port = process.env.PORT || 8000;
 const buildingRoutes = require("./routes/buildingRoutes");
 const userRoutes = require("./routes/userRoutes");
-
+const generateToken = require("./utils/generateToken");
+const bcrypt = require("bcryptjs");
 mongoose
   .connect(process.env.MONGOURI, {
     useNewUrlParser: true,
@@ -17,7 +18,7 @@ mongoose
   .catch((e) => {
     console.log("Error in database connection!!!");
   });
-
+// console.log(generateToken("sumedh"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

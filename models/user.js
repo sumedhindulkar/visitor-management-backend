@@ -1,24 +1,28 @@
 const mongoose = require("mongoose");
-
-const usersSchema = new mongoose.Schema({
-  name: {
-    type: String,
+const bcrypt = require("bcryptjs");
+const usersSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+    },
+    phone: {
+      type: Number,
+    },
+    email: {
+      type: String,
+      unique: true,
+    },
+    photo: {
+      type: String,
+    },
+    password: {
+      type: String,
+    },
   },
-  phone: {
-    type: Number,
-    unique: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-  },
-  photo: {
-    type: String,
-  },
-  password: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const User = mongoose.model("user", usersSchema);
 
