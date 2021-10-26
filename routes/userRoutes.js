@@ -10,6 +10,31 @@ router.get("/users", async (req, res) => {
   res.json(data);
 });
 
+router.post("/login/user", async (req, res) => {
+  const userData = req.body;
+  const { email, password } = userData;
+  // console.log(email, password);
+  const foundUser = await User.findOne({ email: email }).catch((err) =>
+    console.log("Ohh no error: " + err)
+  );
+  // console.log(foundUser);
+  if (foundUser) {
+    bcrypt.compare(password, foundUser.password, function (err, isValid) {
+      if (!isValid) return res.status(400).json({ msg: "Invalid Credentials" });
+      // if (isValid) {
+      console.log("Bro your email and entered password is correct");
+      console.log(foundUser.name, foundUser.email);
+      res.json({ msg: "hogaya login" });
+      // return res.status(200).json({
+      //   success: true,
+      //   redirectUrl: "/signup",
+      // });
+      // }
+    });
+  }
+  return res.status(400).json({ msg: "Invalid Credentials" });
+});
+
 // Register a user and add them to database
 router.post("/users", async (req, res) => {
   const userData = req.body;
@@ -19,7 +44,7 @@ router.post("/users", async (req, res) => {
   // }
   const userExist = await User.findOne({ email });
   if (userExist) {
-    return res.status(400).json({ msg: "User Already Exist" });
+    return res.json({ msg: "User Already Exist" });
   }
 
   const newUser = new User({ name, email, password, photo, phone });
@@ -41,6 +66,7 @@ router.post("/users", async (req, res) => {
           id: newUser.id,
           name: newUser.name,
           email: newUser.email,
+          isBuilding: newUser.isBuilding,
         },
         token,
       });

@@ -6,6 +6,7 @@ const port = process.env.PORT || 8000;
 const buildingRoutes = require("./routes/buildingRoutes");
 const userRoutes = require("./routes/userRoutes");
 const generateToken = require("./utils/generateToken");
+const { User } = require("./models/user");
 const bcrypt = require("bcryptjs");
 mongoose
   .connect(process.env.MONGOURI, {
@@ -22,15 +23,6 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/login", (req, res) => {
-  const { email, name } = req.body;
-  console.log(email, name);
-  // return res.json({
-  //   success: true,
-  //   redirectUrl: "/signup",
-  // });
-  res.redirect("/signup");
-});
 app.use("/api", buildingRoutes);
 app.use("/api", userRoutes);
 

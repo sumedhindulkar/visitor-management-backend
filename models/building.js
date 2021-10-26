@@ -53,6 +53,10 @@ const buildingSchema = new mongoose.Schema({
     type: Number,
     min: 0,
   },
+  isBuilding: {
+    type: Boolean,
+    default: true,
+  },
   qrcode: {
     type: String,
   },
