@@ -18,21 +18,25 @@ router.post("/login/user", async (req, res) => {
     console.log("Ohh no error: " + err)
   );
   // console.log(foundUser);
+
   if (foundUser) {
+    const id = foundUser.id;
+    const token = jwt.sign({ id }, process.env.JWT_SECRET);
     bcrypt.compare(password, foundUser.password, function (err, isValid) {
       if (!isValid) return res.status(400).json({ msg: "Invalid Credentials" });
-      // if (isValid) {
-      console.log("Bro your email and entered password is correct");
-      console.log(foundUser.name, foundUser.email);
-      res.json({ msg: "hogaya login" });
-      // return res.status(200).json({
-      //   success: true,
-      //   redirectUrl: "/signup",
-      // });
-      // }
+      res.json({
+        user: {
+          id: foundUser.id,
+          name: foundUser.name,
+          email: foundUser.email,
+          isBuilding: foundUser.isBuilding,
+        },
+        token,
+      });
     });
+  } else {
+    return res.status(400).json({ msg: "Invalid Credentials" });
   }
-  return res.status(400).json({ msg: "Invalid Credentials" });
 });
 
 // Register a user and add them to database

@@ -2,6 +2,8 @@ require("dotenv").config();
 const { Building, Visitor } = require("./models/building");
 const { User } = require("./models/user");
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 mongoose
   .connect(
     process.env.MONGOURI || "mongodb://localhost:27017/visitorManagement",
@@ -41,7 +43,24 @@ const checkLogin = async () => {
   const foundUser = await User.findOne({ email: "sumedh@gmail.com" }).catch(
     (err) => console.log("Ohh no error: " + err)
   );
-  console.log(foundUser);
+  if (foundUser) {
+    bcrypt.compare("123456", foundUser.password, function (err, isValid) {
+      if (!isValid) return console.log(" msg: 'Invalid Credentials' ");
+
+      console.log("Bro your email and entered password is correct");
+      const id = foundUser.id;
+      const token = jwt.sign({ id }, process.env.JWT_SECRET);
+      // console.log(foundUser.name, foundUser.email);
+      console.log(
+        foundUser.id,
+        foundUser.name,
+        foundUser.email,
+        foundUser.isBuilding,
+        token
+      );
+    });
+  }
+  // console.log(foundUser);
 };
 checkLogin();
 // const addDummyData = async () => {
