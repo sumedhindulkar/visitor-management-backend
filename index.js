@@ -5,9 +5,9 @@ const mongoose = require("mongoose");
 const port = process.env.PORT || 8000;
 const buildingRoutes = require("./routes/buildingRoutes");
 const userRoutes = require("./routes/userRoutes");
-const generateToken = require("./utils/generateToken");
-const { User } = require("./models/user");
-const bcrypt = require("bcryptjs");
+// const generateToken = require("./utils/generateToken");
+// const { User } = require("./models/user");
+// const bcrypt = require("bcryptjs");
 mongoose
   .connect(process.env.MONGOURI, {
     useNewUrlParser: true,
